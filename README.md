@@ -66,7 +66,8 @@ const app = new Vue({
 });
 ```
 
-
+### API
+Under construction
 
 ## License
 

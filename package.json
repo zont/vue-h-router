@@ -1,6 +1,6 @@
 {
   "name": "vue-h-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Small router for Vue.js 2 with hash navigation support",
   "main": "index.js",
   "keywords": [
