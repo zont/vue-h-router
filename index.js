@@ -18,7 +18,7 @@ module.exports = {
 
   redirect(url) {
     history.replaceState({}, '', `#${url}`);
-    this.parse(location.hash);
+    this.parse(url);
   },
 
   parse(url, routes = this.routes) {
@@ -28,7 +28,7 @@ module.exports = {
     if (route) {
       const newRoute = {
         url: path,
-        args: [...route.url.exec(path).slice(1)],
+        args: route.url.exec(path).slice(1),
         component: route.component
       };
 
@@ -49,10 +49,10 @@ module.exports = {
         }
       } else if (route.before) {
         route.before(newRoute)
-          .then(() => this.setRoute(newRoute, route))
+          .then(() => this.setRoute(newRoute, route.after))
           .catch(() => this.parse(url, routes.slice(routes.indexOf(route) + 1)));
       } else {
-        this.setRoute(newRoute, route);
+        this.setRoute(newRoute, route.after);
       }
     } else {
       this.setRoute({
@@ -63,39 +63,20 @@ module.exports = {
     }
   },
 
-  setRoute(route, _route) {
+  setRoute(route, after) {
     const oldRoute = this.route;
-    this.app._route = this.route = route;
-    if (_route && typeof _route.after === 'function') {
-      _route.after(oldRoute, route);
+    this.route = route;
+    if (typeof after === 'function') {
+      after(oldRoute, route);
     }
   },
 
   install(Vue) {
-    const start = app => {
-      this.app = app;
-      window.addEventListener('hashchange', e => this.parse(e.newURL));
-    };
+    Object.defineProperty(Vue.prototype, '$router', {get: () => this});
+    Object.defineProperty(Vue.prototype, '$route', {get: () => this.route});
 
-    Object.defineProperty(Vue.prototype, '$router', {
-      get() {
-        return this.$root._router;
-      }
-    });
-    Object.defineProperty(Vue.prototype, '$route', {
-      get() {
-        return this.$root._route;
-      }
-    });
+    Vue.util.defineReactive(this, 'route', this.route);
 
-    Vue.mixin({
-      beforeCreate() {
-        if (this.$options.router) {
-          this._router = this.$options.router;
-          Vue.util.defineReactive(this, '_route', this._router.route);
-          start(this);
-        }
-      }
-    });
+    window.addEventListener('hashchange', e => this.parse(e.newURL));
   }
 };

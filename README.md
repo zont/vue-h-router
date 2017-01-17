@@ -27,7 +27,6 @@ import HomeView from './views/home';
 
 Vue.use(router);
 
-
 const user = {
   auth: false
 };
@@ -37,15 +36,6 @@ const checkAuth = () => {
 const checkNotAuth = () => {
   return !user.auth ? Promise.resolve() : Promise.reject();
 };
-const app = new Vue({
-  template: `
-    <div class="main">
-      <component :is="$route.component"/>
-    </div>
-  `,
-  router,
-  el: '#app'
-});
 
 router.init([
   {
@@ -65,6 +55,15 @@ router.init([
     }
   }
 ]);
+
+const app = new Vue({
+  template: `
+    <div class="main">
+      <component :is="$route.component"/>
+    </div>
+  `,
+  el: '#app'
+});
 ```
 
 
