@@ -29,7 +29,7 @@ Vue.use(router);
 
 
 const user = {
-  auth: false;
+  auth: false
 };
 const checkAuth = () => {
   return user.auth ? Promise.resolve() : Promise.reject();
@@ -59,9 +59,9 @@ router.init([
     before: checkAuth
   },
   {
-    url: '.*',
+    url: /.*/,
     redirect() {
-      return user.auth ? `/home` : '/login';
+      return user.auth ? '/home' : '/login';
     }
   }
 ]);
