@@ -34,16 +34,12 @@ module.exports = {
 
       if (route.redirect) {
         if (typeof route.redirect === 'function') {
-          if (route.redirect instanceof Promise) {
-            route.redirect(newRoute)
-              .then(url => this.redirect(url))
-              .catch(e => {
-                console.error(e);
-                history.back();
-              });
-          } else {
-            this.redirect(route.redirect(newRoute));
-          }
+          route.redirect(newRoute)
+            .then(url => this.redirect(url))
+            .catch(e => {
+              console.error(e);
+              history.back();
+            });
         } else {
           this.redirect(route.redirect);
         }
