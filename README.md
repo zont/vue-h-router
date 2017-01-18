@@ -89,9 +89,9 @@ const app = new Vue({
 
 ### Router Instance
 
-The router instance can be found in inside components as this.$router.
+The router instance can be found in inside components as **this.$router**.
 
-##### router.init(routes)
+#### router.init(routes)
 Adds a list of routes to router and immediately applies it to the current page url.
 ```javascript
 import Vue from 'vue';
@@ -116,14 +116,14 @@ router.init([
 ]);
 ```
 
-##### router.route
+#### router.route
   - type: `Route`
 
 The current route represented as a Route Object.  
 
-### Routes list item
+### Routes list item fields
 
-##### url
+#### url
   - type: `String` or `RegExp`
   
 If **url** is string, then it converts to RegExp:
@@ -149,10 +149,10 @@ location.hash = '/department/it/user/21';
 // router.route.args is ['it', '21'];
 ```
 
-##### Component
+#### component
   - type: `Vue Component`
   
-##### redirect
+#### redirect
   - type: `String`
 
 Applies immediately when route matched.
@@ -184,25 +184,25 @@ location.hash = '/not/existed/page';
 // current url is /home
 ```
 
-##### redirect(newRoute)
+#### redirect(newRoute)
   - return `Promise`
 
 If promise resolved then redirect applies.
 If promise rejected then current navigation was aborted. 
 
-##### before(newRoute)
+#### before(newRoute)
   - return `Promise`
 
 If promise resolved then redirect applies.
 If promise rejected then **router** tries to find next matching route.
 
-##### after(oldRoute, newRoute)
+#### after(oldRoute, newRoute)
 
 Called after current route applies.
 
 > Router searches for the route in the order in which they appear in the list.
 
-![Workflow diagram](vue-h-router.svg)  
+![Workflow diagram](vue-h-router.png)  
 
 ### Route object
 
@@ -213,25 +213,25 @@ The route object is immutable.
 Every successful navigation will result in a fresh route object.
 
 The route object can be found in multiple places:
-  - Inside components as this.$route
-  - Inside router as router.route
+  - Inside components as **this.$route**
+  - Inside router as **router.route**
   - Inside redirect function:
-    - redirect(newRoute)
+    - **redirect(newRoute)**
   - Inside navigation hooks:
-    - before(newRoute)
-    - after(oldRoute, newRoute)
+    - **before(newRoute)**
+    - **after(oldRoute, newRoute)**
 
-##### $route.url
+#### $route.url
   - type: `String`
 
 The full resolved URL including query.
 
-##### $route.args
+#### $route.args
   - type: `Array`
 
 The list of dynamic segments values.
 
-##### $route.component
+#### $route.component
   - type: `Vue Component`
 
 The Vue component corresponding to the current route.
