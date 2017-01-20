@@ -36,10 +36,7 @@ module.exports = {
         if (typeof route.redirect === 'function') {
           route.redirect(newRoute)
             .then(url => this.redirect(url))
-            .catch(e => {
-              console.error(e);
-              history.back();
-            });
+            .catch(() => history.back());
         } else {
           this.redirect(route.redirect);
         }
