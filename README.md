@@ -7,6 +7,7 @@
 `vue-h-router` is the small router for [Vue.js](http://vuejs.org). It deeply integrates with Vue.js core to make building Single Page Applications with Vue.js a breeze. Features include:
 
 - Lightweight: 2kb of sources
+- No dependencies
 - Modular, component-based router configuration
 - Route params
 - Hash mode navigation
