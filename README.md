@@ -1,4 +1,7 @@
 # vue-h-router
+[![npm version](https://badge.fury.io/js/vue-h-router.svg)](https://badge.fury.io/js/vue-h-router)
+[![npm](https://img.shields.io/npm/l/express.svg)](http://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/zont/vue-h-router.svg?branch=master)](https://travis-ci.org/zont/vue-h-router)
 
 > Edge 12+, FF 36+, Chrome 49+, or use translation from ES2105 to ES5
 
@@ -236,7 +239,3 @@ The list of dynamic segments values.
   - type: `Vue Component`
 
 The Vue component corresponding to the current route.
-
-## License
-
-[MIT](http://opensource.org/licenses/MIT)
