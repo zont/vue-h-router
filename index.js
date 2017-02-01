@@ -4,7 +4,7 @@ module.exports = {
   route: {
     url: '',
     args: [],
-    component: {}
+    component: null
   },
 
   init(routes) {
@@ -51,7 +51,7 @@ module.exports = {
       this.setRoute({
         url: path,
         args: [],
-        component: {}
+        component: null
       });
     }
   },
