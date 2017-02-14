@@ -62,12 +62,12 @@ describe('router', () => {
     helper.goTo('/init/about')
       .then(() => {
         expect(router.route.url).toEqual('/init/about');
-        expect(router.route.component.template).not.toEqual(routes[1].component.template);
+        expect(router.route.component).toEqual(null);
         return helper.goTo('/init/home');
       })
       .then(() => {
         expect(router.route.url).toEqual('/init/home');
-        expect(router.route.component.template).not.toEqual(routes[0].component.template);
+        expect(router.route.component).toEqual(null);
         router.init(routes);
         expect(router.route.component.template).toEqual(routes[0].component.template);
 
@@ -77,7 +77,7 @@ describe('router', () => {
         expect(router.route.url).toEqual('/init/about');
         expect(router.route.component.template).toEqual(routes[1].component.template);
         router.init([]);
-        expect(router.route.component.template).not.toEqual(routes[1].component.template);
+        expect(router.route.component).toEqual(null);
       })
       .then(done)
       .catch(done.fail);
