@@ -28,7 +28,10 @@ module.exports = {
     if (route) {
       const newRoute = {
         url: path,
-        args: route.url.exec(path).slice(1),
+        args: route.url
+          .exec(path)
+          .slice(1)
+          .filter(arg => arg),
         component: route.component
       };
 
