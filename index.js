@@ -17,8 +17,10 @@ module.exports = {
   },
 
   redirect(url) {
-    history.replaceState({}, '', `#${url}`);
-    this.parse(url);
+    const path = url.replace(/^[^#]*#/, '');
+
+    history.replaceState({}, '', `#${path}`);
+    setTimeout(() => this.parse(url), 0); // prevent infinity loop 100% CPU usage
   },
 
   parse(url, routes = this.routes) {
@@ -38,9 +40,13 @@ module.exports = {
       if (route.redirect) {
         if (typeof route.redirect === 'function') {
           route.redirect(newRoute)
-            .then(url => this.redirect(url))
+            .then(newUrl => {
+              if (url !== newUrl) {
+                this.redirect(newUrl);
+              }
+            })
             .catch(() => history.back());
-        } else {
+        } else if (url !== route.redirect) {
           this.redirect(route.redirect);
         }
       } else if (route.before) {
