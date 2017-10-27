@@ -16,6 +16,10 @@ module.exports = {
     this.parse(location.hash);
   },
 
+  go(url) {
+    location.hash = url;
+  },
+
   redirect(url) {
     const path = url.replace(/^[^#]*#/, '');
 
