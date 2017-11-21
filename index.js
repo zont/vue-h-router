@@ -21,9 +21,6 @@ module.exports = {
   },
 
   redirect(url) {
-    const path = url.replace(/^[^#]*#/, '');
-
-    history.replaceState({}, '', `#${path}`);
     setTimeout(() => this.parse(url), 0); // prevent infinity loop 100% CPU usage
   },
 
@@ -49,7 +46,9 @@ module.exports = {
                 this.redirect(newUrl);
               }
             })
-            .catch(() => history.back());
+            .catch(() => {
+              location.hash = this.route.url;
+            });
         } else if (url !== route.redirect) {
           this.redirect(route.redirect);
         }
@@ -83,6 +82,6 @@ module.exports = {
 
     Vue.util.defineReactive(this, 'route', this.route);
 
-    window.addEventListener('hashchange', e => this.parse(e.newURL));
+    window.addEventListener('hashchange', () => this.parse(location.hash));
   }
 };
