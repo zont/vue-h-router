@@ -21,10 +21,14 @@ module.exports = {
   },
 
   redirect(url) {
-    const path = url.replace(/^[^#]*#/, '');
-
-    history.replaceState({}, '', `#${path}`);
-    setTimeout(() => this.parse(url), 0); // prevent infinity loop 100% CPU usage
+    if (/^https?:\/\//i.test(url)) {
+      location.href = url;
+    } else {
+      const path = url.replace(/^[^#]*#/, '');
+  
+      history.replaceState({}, '', `#${path}`);
+      setTimeout(() => this.parse(url), 0); // prevent infinity loop 100% CPU usage
+    }
   },
 
   parse(url, routes = this.routes) {
